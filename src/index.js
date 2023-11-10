@@ -1,8 +1,23 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+
+
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min';
+
+// const Home = React.lazy(() => import("../pages/Home"))
+// // other page components...
+// const About = React.lazy(() => import("../pages/About"))
+
+// const routes = [
+//     { path: PathConstants.HOME, element: <Home /> },
+//     // other mappings ...
+//     { path: PathConstants.ABOUT, element: <About /> },
+// ]
+
+// export default routes
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
