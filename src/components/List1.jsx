@@ -23,9 +23,6 @@ const List1 = () => {
     setItems(updatedItems);
   };
 
-  
-  
-  
   const handleAddToResolved = (index) => {
     const resolvedItem = items[index];
     setResolvedItems([...resolvedItems, resolvedItem]);
@@ -70,10 +67,10 @@ const List1 = () => {
     <div>
       <div class="d-flex justify-content-center">
        <div class="btn-group" role="group" aria-label="Basic example">
-          <button type="button" class="btn btn-primary" onClick={handleToggleAll}>All</button>
+          <button type="button" class={`btn btn-primary ${(isResolvedVisible && isUnresolvedVisible) === true ? 'active' : ''}`} onClick={handleToggleAll}>All</button>
           {/* for some reason the logic is flipped or im just stupid lol */}
-          <button type="button" class="btn btn-primary" onClick={handleToggleResolved}>Unresolved</button> 
-          <button type="button" class="btn btn-primary" onClick={handleToggleUnresolved}>Resolved</button>
+          <button type="button" class={`btn btn-primary ${(isResolvedVisible  === true && isUnresolvedVisible === false)? 'active' : ''}`} onClick={handleToggleResolved}>Unresolved</button> 
+          <button type="button" class={`btn btn-primary ${(isUnresolvedVisible === true && isResolvedVisible === false)? 'active' : ''}`} onClick={handleToggleUnresolved}>Resolved</button>
         </div>
       </div>
       {/* {resolvedItems} */}
