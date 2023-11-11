@@ -65,6 +65,7 @@ const List1 = () => {
   return (
     // Buttons for filter switching 
     <div>
+      
       <div class="d-flex justify-content-center">
        <div class="btn-group" role="group" aria-label="Basic example">
           <button type="button" class={`btn btn-primary ${(isResolvedVisible && isUnresolvedVisible) === true ? 'active' : ''}`} onClick={handleToggleAll}>All</button>
