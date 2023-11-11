@@ -12,8 +12,8 @@ const List1 = () => {
   const [listName, setListName] = useState("List1");
   const [isInputVisible, setIsInputVisible] = useState(true);
   const [newItem, setNewItem] = useState('');
-  const [isResolvedVisible, setResolvedVisible] = useState(true);
-  const [isUnresolvedVisible, setUnresolvedVisible] = useState(true);
+  let [isResolvedVisible, setResolvedVisible] = useState(true);
+  let [isUnresolvedVisible, setUnresolvedVisible] = useState(true);
 
   
 
@@ -48,16 +48,21 @@ const List1 = () => {
   };
 
   const handleToggleResolved = () => {
-    setResolvedVisible(!isResolvedVisible);
+    setResolvedVisible(isResolvedVisible = true);
+    setUnresolvedVisible(isUnresolvedVisible = false);
   }
 
   const handleToggleUnresolved = () => {
-    setUnresolvedVisible(!isUnresolvedVisible);
+    setUnresolvedVisible(isUnresolvedVisible = true);
+    setResolvedVisible(isResolvedVisible = false);
   }
 
   const handleToggleAll = () => {
-    handleToggleResolved()
-    handleToggleUnresolved()
+    setUnresolvedVisible(isUnresolvedVisible = true);
+    setResolvedVisible(isResolvedVisible = true);
+
+    // handleToggleResolved()
+    // handleToggleUnresolved()
   }
 
   return (
@@ -66,8 +71,9 @@ const List1 = () => {
       <div class="d-flex justify-content-center">
        <div class="btn-group" role="group" aria-label="Basic example">
           <button type="button" class="btn btn-primary" onClick={handleToggleAll}>All</button>
-          <button type="button" class="btn btn-primary" onClick={handleToggleResolved}>Resolved</button>
-          <button type="button" class="btn btn-primary" onClick={handleToggleUnresolved}>Unresolved</button>
+          {/* for some reason the logic is flipped or im just stupid lol */}
+          <button type="button" class="btn btn-primary" onClick={handleToggleResolved}>Unresolved</button> 
+          <button type="button" class="btn btn-primary" onClick={handleToggleUnresolved}>Resolved</button>
         </div>
       </div>
       {/* {resolvedItems} */}
@@ -127,7 +133,7 @@ const List1 = () => {
 
 
         {isResolvedVisible ? 
-          // Render Nothing
+          // render Unresolved Items
           <>
       <h2>Unresolved Items</h2>
       <ul className="list-group">
@@ -158,7 +164,7 @@ const List1 = () => {
       </ul>
         </>
          : 
-         // render Unresolved Items
+          // Render Nothing
          <div></div>
           
         }
