@@ -3,6 +3,7 @@
 const PathConstants = {
     HOME: "/",
     // other pages's paths...
+    LIST1: "/List1",
     ABOUT: "about"
 }
 

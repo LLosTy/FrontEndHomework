@@ -8,9 +8,9 @@ import { Suspense } from "react"
 export default function Layout() {
     return (
         <>
-            <Navbar />
             <main>                
                 <Suspense fallback={<div>Loading...</div>}>
+            <Navbar />
                     <Outlet />
                 </Suspense>
             </main>
