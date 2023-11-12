@@ -9,7 +9,7 @@ const List1 = () => {
     "And a fifth one",
   ]);
 
-  const [members, setMember] = useState([
+  const [members, setMembers] = useState([
     "User1",
     "User2",
   ])
@@ -18,9 +18,15 @@ const List1 = () => {
 
   const handleAddNewMember = () => {
     if (newMember.trim() !== '') {
-      setMember([...members, newMember]);
+      setMembers([...members, newMember]);
       setNewMember('');
     }
+  }
+
+  const handleRemoveMember = (index) => {
+    const updatedMembers = [...members];
+    updatedMembers.splice(index, 1);
+    setMembers(updatedMembers)
   }
 
   
@@ -209,7 +215,7 @@ const List1 = () => {
         }
 
 
-      {/* Render Resolved Items */}
+      {/* Render Member */}
 
       <h2>Members</h2>  
         <div class="input-group">
@@ -217,7 +223,7 @@ const List1 = () => {
           <input type="text" class="form-control" placeholder="Member Username" aria-label="Add New Member" value={newMember} onChange={(e) => setNewMember(e.target.value)}></input>
           <button type="button" class="btn btn-success" onClick={handleAddNewMember}>Add Member</button>
         </div>
-
+        <ul className="list-group">
         {members.map((memberItem, memberIndex) => (
           <div className='d-flex'>
             <li
@@ -229,13 +235,14 @@ const List1 = () => {
                 type="button"
                 className="btn btn-danger btn-sm"
                 // onClick={() => handleRemoveItem(index)}
+                onClick={() => handleRemoveMember(memberIndex)}
               >
                 Remove
               </button>
             </li>
           </div>
         ))}
-
+      </ul>
     </div>
   );
 };
