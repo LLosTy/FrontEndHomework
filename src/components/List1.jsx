@@ -30,6 +30,16 @@ const List1 = () => {
   }
 
   
+  // Add is Owner boolean
+  // if owner => show edit list name AND show member list 
+  // if NOT owner => don't show edit List Name AND don't show Member list (or just remove add member and remove member)
+  
+  const [isOwner, setIsOwner] = useState(true);
+
+  const handleSetOwner = () => {
+    setIsOwner(!isOwner);
+  }
+  
 
   const [resolvedItems, setResolvedItems] = useState([]);
   const [listName, setListName] = useState("List1");
@@ -88,9 +98,12 @@ const List1 = () => {
   return (
     // Buttons for filter switching 
     <div>
-      {items}
-      <div></div>
-      {members}
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" onChange={handleSetOwner}></input>
+        <label class="form-check-label" for="flexSwitchCheckDefault">Is Owner</label>
+      </div>
+      {isOwner ? <h3>True</h3> : <h3>False</h3>}
+
       <div class="d-flex justify-content-center">
        <div class="btn-group" role="group" aria-label="Basic example">
           <button type="button" class={`btn btn-primary ${(isResolvedVisible && isUnresolvedVisible) === true ? 'active' : ''}`} onClick={handleToggleAll}>All</button>
