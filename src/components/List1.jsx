@@ -108,36 +108,43 @@ const List1 = () => {
        <div class="btn-group" role="group" aria-label="Basic example">
           <button type="button" class={`btn btn-primary ${(isResolvedVisible && isUnresolvedVisible) === true ? 'active' : ''}`} onClick={handleToggleAll}>All</button>
           {/* for some reason the logic is flipped or im just stupid lol */}
+          {/* Fix the resolved and unresolved filter (is flipped in the rendering below) */}
           <button type="button" class={`btn btn-primary ${(isResolvedVisible  === true && isUnresolvedVisible === false)? 'active' : ''}`} onClick={handleToggleResolved}>Unresolved</button> 
           <button type="button" class={`btn btn-primary ${(isUnresolvedVisible === true && isResolvedVisible === false)? 'active' : ''}`} onClick={handleToggleUnresolved}>Resolved</button>
         </div>
       </div>
-      {/* {resolvedItems} */}
+      
       <div className="input-group">
         
-      {/* List name + list name editor + buttons */}
+        {/* List name + list name editor + buttons */}
 
-        {isInputVisible ? (
-          listName
-        ) : (
-          <>
-            <input
-              type="text"
-              className="form-control"
-              id="listNameInput"
-              placeholder={listName}
-              aria-label="List Name"
-              onChange={(e) => setListName(e.target.value)}
-            />
-          </>
-        )}
-        <button
-          className="btn btn-outline-secondary"
-          type="button"
-          onClick={handleToggleInput}
-        >
-          {isInputVisible ? 'Edit' : 'Save'}
-        </button>
+          {isInputVisible ? (
+            listName
+          ) : (
+            <>
+              <input
+                type="text"
+                className="form-control"
+                id="listNameInput"
+                placeholder={listName}
+                aria-label="List Name"
+                onChange={(e) => setListName(e.target.value)}
+              />
+            </>
+          )}
+          {/* Shows the edit button if the user is owner */}
+          {isOwner ? <>
+          <button
+            className="btn btn-outline-secondary"
+            type="button"
+            onClick={handleToggleInput}
+          >
+            {isInputVisible ? 'Edit' : 'Save'}
+          </button>
+          
+          </>:
+          <div></div>
+          }
       </div>
 
       {/* Add new item input field */}
@@ -228,8 +235,9 @@ const List1 = () => {
         }
 
 
-      {/* Render Member */}
+      {/* Member Render */}
 
+        {isOwner ? <>
       <h2>Members</h2>  
         <div class="input-group">
           <div class="input-group-text" id="btnGroupAddon">@</div>
@@ -256,6 +264,8 @@ const List1 = () => {
           </div>
         ))}
       </ul>
+
+        </> : <div></div>}
     </div>
   );
 };
