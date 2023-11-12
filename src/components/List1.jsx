@@ -1,6 +1,20 @@
 import React, { useState } from 'react';
 import Modal from './modal';
 
+
+// TODO : 
+// Make sure list is not empty
+// move is owner toggle to the right of the screen, maybe do it like Is Owner: True/False
+// List Name - make bigger, when in editing mode make the box less wide
+// New Item - make less wide
+// Align Remove and Resolve buttons to the right
+// Unresolved items - padding/maragin, make it more visually separate
+// Resolved items - padding/maragin, make it more visually separate
+// Members items - padding/maragin, make it more visually separate
+// Add member - make less wide
+// Navbar - Remove the unnecesarry buttons
+// Error 404 - cleanup
+
 const List1 = () => {
   const [items, setItems] = useState([
     "An item",
@@ -29,11 +43,6 @@ const List1 = () => {
     updatedMembers.splice(index, 1);
     setMembers(updatedMembers)
   }
-
-  
-  // Add is Owner boolean
-  // if owner => show edit list name AND show member list 
-  // if NOT owner => don't show edit List Name AND don't show Member list (or just remove add member and remove member)
   
   const [isOwner, setIsOwner] = useState(true);
 
@@ -99,13 +108,55 @@ const List1 = () => {
   return (
     // Buttons for filter switching 
     <div>
-      <div class="form-check form-switch">
-        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" onChange={handleSetOwner}></input>
-        <label class="form-check-label" for="flexSwitchCheckDefault">Is Owner</label>
+      <div class="form-check form-switch d-flex justify-content-end p-2 ">
+        <input class="form-check-input me-2" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked={isOwner}  onChange={handleSetOwner}></input>
+        <label class="form-check-label" for="flexSwitchCheckDefault">Is Owner: {isOwner ? "True" : "False"}</label>
       </div>
-      {isOwner ? <h3>True</h3> : <h3>False</h3>}
+      
+      <div class={`input-group row  ${(isOwner)? 'justify-content-end' : 'justify-content-center'}`}>
+      {/* <div className="input-group row justify-content-end"> */}
+        
+        {/* List name + list name editor + buttons */}
 
-      <div class="d-flex justify-content-center">
+          {isInputVisible ? (
+            // List Name
+            <div className='col-4 text-center mb-1'>
+              <h2>{listName}</h2>
+            </div>
+          ) : (
+            <>
+            {/* List Name Text Edit Box */}
+              <div className='col-4 mb-2'>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="listNameInput"
+                  placeholder={listName}
+                  aria-label="List Name"
+                  onChange={(e) => setListName(e.target.value)}
+                  />
+              </div>
+            </>
+          )}
+          {/* Shows the edit button if the user is owner */}
+          {isOwner ? 
+          <>
+            <div className='col-4 mb-2'>
+              <button
+                className="btn btn-outline-secondary"
+                type="button"
+                onClick={handleToggleInput}
+              >
+                {isInputVisible ? 'Edit' : 'Save'}
+              </button>
+          </div>
+          </>:
+          <div></div>
+          }
+      </div>
+      
+
+      <div class="d-flex justify-content-center p-2">
        <div class="btn-group" role="group" aria-label="Basic example">
           <button type="button" class={`btn btn-primary ${(isResolvedVisible && isUnresolvedVisible) === true ? 'active' : ''}`} onClick={handleToggleAll}>All</button>
           {/* for some reason the logic is flipped or im just stupid lol */}
@@ -114,42 +165,9 @@ const List1 = () => {
           <button type="button" class={`btn btn-primary ${(isUnresolvedVisible === true && isResolvedVisible === false)? 'active' : ''}`} onClick={handleToggleUnresolved}>Resolved</button>
         </div>
       </div>
-      
-      <div className="input-group">
-        
-        {/* List name + list name editor + buttons */}
-
-          {isInputVisible ? (
-            listName
-          ) : (
-            <>
-              <input
-                type="text"
-                className="form-control"
-                id="listNameInput"
-                placeholder={listName}
-                aria-label="List Name"
-                onChange={(e) => setListName(e.target.value)}
-              />
-            </>
-          )}
-          {/* Shows the edit button if the user is owner */}
-          {isOwner ? <>
-          <button
-            className="btn btn-outline-secondary"
-            type="button"
-            onClick={handleToggleInput}
-          >
-            {isInputVisible ? 'Edit' : 'Save'}
-          </button>
-          
-          </>:
-          <div></div>
-          }
-      </div>
 
       {/* Add new item input field */}
-      <div className="input-group">
+      <div className="input-group input-group p-2 pe-3 ps-3">
         <input
           type="text"
           className="form-control"
@@ -179,31 +197,31 @@ const List1 = () => {
         {isResolvedVisible ? 
           // render Unresolved Items
           <>
-      <h2>Unresolved Items</h2>
+      <h2 className='p-2 m-2'>Unresolved Items</h2>
       <ul className="list-group">
         {items.map((item, index) => (
-          <div className='d-flex'>
             <li
               key={index}
-              className="list-group-item flex-grow-1"
+              className="list-group-item d-flex me-3 ms-3"
             >
-              {item}
+              <div className='flex-grow-1 p-2'>
+                {item}
+              </div>
               <button
                 type="button"
-                className="btn btn-info btn-sm"
+                className="btn btn-primary btn-sm m-1"
                 onClick={() => handleAddToResolved(index)}
               >
                 Resolved
               </button>
               <button
                 type="button"
-                className="btn btn-danger btn-sm"
+                className="btn btn-danger btn-sm m-1"
                 onClick={() => handleRemoveItem(index)}
               >
                 Remove
               </button>
             </li>
-          </div>
         ))}
       </ul>
         </>
@@ -220,11 +238,13 @@ const List1 = () => {
           // render Resolved Items
           <>
             <div>
-              <h2>Resolved Items</h2>
+              <h2 className='p-2 m-2'>Resolved Items</h2>
               <ul className="list-group">
                 {resolvedItems.map((item, index) => (
-                  <li key={index} className="list-group-item">
-                    {item}
+                  <li key={index} className="list-group-item d-flex me-3 ms-3">
+                    <div className='flex-grow-1 p-2'>
+                      {item}
+                    </div>
                   </li>
                 ))}
               </ul>
@@ -238,9 +258,9 @@ const List1 = () => {
 
       {/* Member Render */}
         
-      <h2>Members</h2>  
+      <h2 className='p-2 m-2'>Members</h2>  
         {isOwner ? <>
-        <div class="input-group">
+        <div class="input-group pe-3 ps-3 mb-2">
           <div class="input-group-text" id="btnGroupAddon">@</div>
           <input type="text" class="form-control" placeholder="Member Username" aria-label="Add New Member" value={newMember} onChange={(e) => setNewMember(e.target.value)}></input>
           <button type="button" class="btn btn-success" onClick={handleAddNewMember}>Add Member</button>
@@ -248,16 +268,17 @@ const List1 = () => {
           </> : <div></div>}
         <ul className="list-group">
         {members.map((memberItem, memberIndex) => (
-          <div className='d-flex'>
             <li
               key={memberIndex}
-              className="list-group-item flex-grow-1"
+              className="list-group-item d-flex me-3 ms-3"
             >
-              {memberItem}
+              <div className='flex-grow-1 p-2'>
+                {memberItem}
+              </div>
               {isOwner ? <>
              <button
                 type="button"
-                className="btn btn-danger btn-sm"
+                className="btn btn-danger btn-sm m-1"
                 // onClick={() => handleRemoveItem(index)}
                 onClick={() => handleRemoveMember(memberIndex)}
               >
@@ -265,10 +286,16 @@ const List1 = () => {
               </button>
               </> : <div></div>}
             </li>
-          </div>
         ))}
       </ul>
-        {isOwner ?  <div></div> : <Modal></Modal>} 
+        {isOwner ?  <div></div> : 
+        <>
+          <div class="d-flex justify-content-center mt-5 m-2 p-2">
+            <Modal></Modal>
+          </div>
+        </>
+} 
+
     </div>
   );
 };
