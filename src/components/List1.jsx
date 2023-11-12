@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Modal from './modal';
 
 const List1 = () => {
   const [items, setItems] = useState([
@@ -262,13 +263,12 @@ const List1 = () => {
               >
                 Remove
               </button>
-
               </> : <div></div>}
             </li>
           </div>
         ))}
       </ul>
-
+        {isOwner ?  <div></div> : <Modal></Modal>} 
     </div>
   );
 };
