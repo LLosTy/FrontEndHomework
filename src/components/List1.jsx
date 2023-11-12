@@ -236,14 +236,15 @@ const List1 = () => {
 
 
       {/* Member Render */}
-
-        {isOwner ? <>
+        
       <h2>Members</h2>  
+        {isOwner ? <>
         <div class="input-group">
           <div class="input-group-text" id="btnGroupAddon">@</div>
           <input type="text" class="form-control" placeholder="Member Username" aria-label="Add New Member" value={newMember} onChange={(e) => setNewMember(e.target.value)}></input>
           <button type="button" class="btn btn-success" onClick={handleAddNewMember}>Add Member</button>
         </div>
+          </> : <div></div>}
         <ul className="list-group">
         {members.map((memberItem, memberIndex) => (
           <div className='d-flex'>
@@ -252,6 +253,7 @@ const List1 = () => {
               className="list-group-item flex-grow-1"
             >
               {memberItem}
+              {isOwner ? <>
              <button
                 type="button"
                 className="btn btn-danger btn-sm"
@@ -260,12 +262,13 @@ const List1 = () => {
               >
                 Remove
               </button>
+
+              </> : <div></div>}
             </li>
           </div>
         ))}
       </ul>
 
-        </> : <div></div>}
     </div>
   );
 };
