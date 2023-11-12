@@ -8,6 +8,23 @@ const List1 = () => {
     "A fourth item",
     "And a fifth one",
   ]);
+
+  const [members, setMember] = useState([
+    "User1",
+    "User2",
+  ])
+
+  const [newMember, setNewMember] = useState('');
+
+  const handleAddNewMember = () => {
+    if (newMember.trim() !== '') {
+      setMember([...members, newMember]);
+      setNewMember('');
+    }
+  }
+
+  
+
   const [resolvedItems, setResolvedItems] = useState([]);
   const [listName, setListName] = useState("List1");
   const [isInputVisible, setIsInputVisible] = useState(true);
@@ -65,7 +82,9 @@ const List1 = () => {
   return (
     // Buttons for filter switching 
     <div>
-      
+      {items}
+      <div></div>
+      {members}
       <div class="d-flex justify-content-center">
        <div class="btn-group" role="group" aria-label="Basic example">
           <button type="button" class={`btn btn-primary ${(isResolvedVisible && isUnresolvedVisible) === true ? 'active' : ''}`} onClick={handleToggleAll}>All</button>
@@ -191,6 +210,32 @@ const List1 = () => {
 
 
       {/* Render Resolved Items */}
+
+      <h2>Members</h2>  
+        <div class="input-group">
+          <div class="input-group-text" id="btnGroupAddon">@</div>
+          <input type="text" class="form-control" placeholder="Member Username" aria-label="Add New Member" value={newMember} onChange={(e) => setNewMember(e.target.value)}></input>
+          <button type="button" class="btn btn-success" onClick={handleAddNewMember}>Add Member</button>
+        </div>
+
+        {members.map((memberItem, memberIndex) => (
+          <div className='d-flex'>
+            <li
+              key={memberIndex}
+              className="list-group-item flex-grow-1"
+            >
+              {memberItem}
+             <button
+                type="button"
+                className="btn btn-danger btn-sm"
+                // onClick={() => handleRemoveItem(index)}
+              >
+                Remove
+              </button>
+            </li>
+          </div>
+        ))}
+
     </div>
   );
 };
