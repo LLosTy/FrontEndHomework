@@ -2,13 +2,14 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom"
-import Layout from "./components/layout.jsx"
+import Layout from "./components/layout.jsx";
 import React from 'react';
 // import Home from "./pages/Home"
-import Page404 from "./components/page404.jsx";
 // import Navbar from './components/navbar.jsx';
 // import Tabs from './components/tabs.jsx';
 // import Input from './components/input.jsx';
+import Page404 from "./components/page404.jsx";
+import TileView from './components/tileView.jsx';
 import List1 from './components/List1.jsx';
 // ...
 // import About from "./pages/About"
@@ -25,6 +26,10 @@ function App() {
         {
           path: "/List1",
           element: <List1 />,
+        },
+        {
+          path: "/tileView",
+          element: <TileView />,
         },
         // other pages....
         // {
