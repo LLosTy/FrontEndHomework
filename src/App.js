@@ -9,7 +9,7 @@ import React from 'react';
 // import Tabs from './components/tabs.jsx';
 // import Input from './components/input.jsx';
 import Page404 from "./components/page404.jsx";
-import TileView from './components/tileView.jsx';
+import tileView1 from './components/tileView1.jsx';
 import List1 from './components/List1.jsx';
 // ...
 // import About from "./pages/About"
@@ -27,9 +27,11 @@ function App() {
           path: "/List1",
           element: <List1 />,
         },
+
+        
         {
-          path: "/tileView",
-          element: <TileView />,
+          path: "/tileView1",
+          element: <tileView1 />,
         },
         // other pages....
         // {
