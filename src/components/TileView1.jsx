@@ -8,10 +8,11 @@ import React, { useState} from "react";
 // the index will be used for the destination of the button
 // adding a list
 // filtering (archived/not archived)
-//              ===TODO===
 // deleting a list (only owner -- just do this by toggle) -> maybe a variable like 'toBeDeleted' that stores which list i want to delete
 // archiving a list (just add into archived array(the same as items in a list))
 // toggle between owner and not owner
+//              ===TODO===
+// Final touchups
 // LETS NOT DO ROUTING RN CAUSE IT PROLLY WONT WORK --- THE MAIN GOAL IS TO JUST DISPLAY THEM
 
 
