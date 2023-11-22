@@ -11,6 +11,9 @@ import React from 'react';
 import Page404 from "./components/page404.jsx";
 import TileView1 from './components/TileView1.jsx';
 import List1 from './components/List1.jsx';
+import List2 from './components/List2.jsx';
+import List3 from './components/List3.jsx';
+
 // ...
 // import About from "./pages/About"
 
@@ -26,6 +29,14 @@ function App() {
         {
           path: "/List1",
           element: <List1 />,
+        },
+        {
+          path: "/List2",
+          element: <List2 />,
+        },
+        {
+          path: "/List3",
+          element: <List3 />,
         },
 
         
