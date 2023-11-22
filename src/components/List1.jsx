@@ -3,6 +3,7 @@ import Modal from './modal';
 
 
 // TODO : 
+// Maybe add a button to the list name directly to show rename box
 // Make sure list is not empty
 // move is owner toggle to the right of the screen, maybe do it like Is Owner: True/False
 // List Name - make bigger, when in editing mode make the box less wide
