@@ -7,10 +7,10 @@ import React, { useState} from "react";
 // the list will be iterated through a for loop
 // the index will be used for the destination of the button
 // adding a list
-//              ===TODO===
-// deleting a list (only owner -- just do this by toggle)
-// archiving a list (just add into archived array(the same as items in a list))
 // filtering (archived/not archived)
+//              ===TODO===
+// deleting a list (only owner -- just do this by toggle) -> maybe a variable like 'toBeDeleted' that stores which list i want to delete
+// archiving a list (just add into archived array(the same as items in a list))
 // toggle between owner and not owner
 // LETS NOT DO ROUTING RN CAUSE IT PROLLY WONT WORK --- THE MAIN GOAL IS TO JUST DISPLAY THEM
 
@@ -36,12 +36,14 @@ const TileView1 = () => {
         const updatedLists = [...lists];
         updatedLists.splice(index, 1);
         setList(updatedLists)
+        setCurrentIndexActive(null) //Set to null just in case
       }
     
       const handleRemoveArchivedList = (index) => {
         const updatedLists = [...archivedLists];
         updatedLists.splice(index, 1);
         setArchivedList(updatedLists)
+        setCurrentIndexArchived(null) //Set to null just in case
       }
 
 
@@ -89,7 +91,15 @@ const TileView1 = () => {
         setArchivedVisible(isArchivedVisible = true);
     }
 
-    
+
+    const [currentIndexActive, setCurrentIndexActive] = useState(null)
+    const [currentIndexArchived, setCurrentIndexArchived] = useState(null)
+
+    // const handleDeleteListActive = (index) => {
+    //     // handleRemoveList(index)
+    //     // const indexActive = index
+    //     setCurrentIndexActive(index);
+    // }
 
 
     return(
@@ -108,6 +118,7 @@ const TileView1 = () => {
             
             {isActiveVisible ? 
             <>
+            
                 <h1>Active Lists</h1>
                     {lists.map((list,index) => (
                             <div class="card mb-3">
@@ -120,7 +131,32 @@ const TileView1 = () => {
                                     {/* <p class="card-text">With supporting text below as a natural lead-in to additional content.</p> */}
                                     <a class="btn btn-primary" href={`/${list}`}>Go somewhere</a>
                                     <a class="btn btn-warning" onClick={() => handleAddToArchived(index)}>Archive list</a>
-                                    <a class="btn btn-danger" onClick={() => handleRemoveList(index)}>Delete list</a>
+                                    {/* <a class="btn btn-danger" onClick={() => handleRemoveList(index)}>Delete list</a> */}
+                                 {/* <!-- Button trigger modal --> */}
+                                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" onClick={() => setCurrentIndexActive(index)}>
+                                        Delete list
+                                        </button>
+
+                                        {/* <!-- Modal --> */}
+                                        <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="deleteModalLabel">Modal title</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Are you sure you wish to delete active list: {lists[currentIndexActive]}
+                                                {/* {currentIndexActive} */}
+                                                {/* {lists[currentIndexActive]} */}
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                <button type="button" class="btn btn-primary" onClick={() => handleRemoveList(currentIndexActive)} data-bs-dismiss="modal">Save changes</button>
+                                            </div>
+                                            </div>
+                                        </div>
+                                        </div>
                                 </div>
                             </div>
                         ))
@@ -143,8 +179,32 @@ const TileView1 = () => {
                                         {/* </a> */}
                                     {/* <p class="card-text">With supporting text below as a natural lead-in to additional content.</p> */}
                                     <a class="btn btn-primary" href={`/${listArchived}`}>Go somewhere</a>
-                                    <a class="btn btn-warning" onClick={() => handleAddToArchived(indexArchived)}>Archive list</a>
-                                    <a class="btn btn-danger" onClick={() => handleRemoveArchivedList(indexArchived)}>Delete list</a>
+                                    {/* <a class="btn btn-warning" onClick={() => handleAddToArchived(indexArchived)}>Archive list</a> */}
+                                    {/* <a class="btn btn-danger" onClick={() => handleRemoveArchivedList(indexArchived)}>Delete list</a> */}
+                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModalArchived" onClick={() => setCurrentIndexArchived(indexArchived)}>
+                                        Delete list
+                                        </button>
+
+                                        {/* <!-- Modal --> */}
+                                        <div class="modal fade" id="deleteModalArchived" tabindex="-1" aria-labelledby="deleteModalArchivedLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="deleteModalArchivedLabel">Modal title</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Are you sure you wish to delete archived list: {archivedLists[currentIndexArchived]}
+                                                {/* {currentIndexActive} */}
+                                                {/* {lists[currentIndexActive]} */}
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                <button type="button" class="btn btn-primary" onClick={() => handleRemoveArchivedList(currentIndexArchived)} data-bs-dismiss="modal">Save changes</button>
+                                            </div>
+                                            </div>
+                                        </div>
+                                        </div>
                                 </div>
                             </div>
                         ))
