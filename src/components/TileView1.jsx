@@ -37,6 +37,15 @@ const TileView1 = () => {
         updatedLists.splice(index, 1);
         setList(updatedLists)
       }
+    
+      const handleRemoveArchivedList = (index) => {
+        const updatedLists = [...archivedLists];
+        updatedLists.splice(index, 1);
+        setArchivedList(updatedLists)
+      }
+
+
+      
 
       //       const [resolvedItems, setResolvedItems] = useState([]);
       const[archivedLists, setArchivedList] = useState([]);
@@ -62,44 +71,89 @@ const TileView1 = () => {
     //     setItems(updatedItems);
     //   };
 
+    let [isActiveVisible, setActiveVisible] = useState(true);
+    let [isArchivedVisible, setArchivedVisible] = useState(true);
+
+    const handleToggleAllVisible = () => {
+        setActiveVisible(isActiveVisible = true);
+        setArchivedVisible(isArchivedVisible = true);
+    }
+
+    const handleActiveVisible = () => {
+        setActiveVisible(isActiveVisible = true);
+        setArchivedVisible(isArchivedVisible = false);
+    }
+
+    const handleArchivedVisible = () => {
+        setActiveVisible(isActiveVisible = false);
+        setArchivedVisible(isArchivedVisible = true);
+    }
+
     
 
 
     return(
         <div>
-            <h1>Active Lists</h1>
-            {lists.map((list,index) => (
-                <div class="card mb-3">
-                    <div class="card-body">
-                            {/* <a class ="btn"href={`/${list}`}> */}
-                                <h5 class="card-title">
-                                    {list}
-                                </h5>
-                            {/* </a> */}
-                        {/* <p class="card-text">With supporting text below as a natural lead-in to additional content.</p> */}
-                        <a class="btn btn-primary" href={`/${list}`}>Go somewhere</a>
-                        <a class="btn btn-warning" onClick={() => handleAddToArchived(index)}>Archive list</a>
-                        <a class="btn btn-danger" onClick={() => handleRemoveList(index)}>Delete list</a>
-                    </div>
-                </div>
-            ))
+
+
+        <div class="btn-group" role="group" aria-label="Basic example">
+            {/* <button type="button" class={`btn btn-primary ${(isResolvedVisible && isUnresolvedVisible) === true ? 'active' : ''}`} onClick={handleToggleAll}>All</button> */}
+            <button type="button" class={`btn btn-primary ${(isActiveVisible && isArchivedVisible) === true ? 'active' : ''} `} onClick={handleToggleAllVisible}>All</button>
+
+            {/* for some reason the logic is flipped or im just stupid lol */}
+            {/* Fix the resolved and unresolved filter (is flipped in the rendering below) */}
+            <button type="button" class={`btn btn-primary ${(isActiveVisible === true) && (isArchivedVisible === false) ? 'active' : ''}`} onClick={handleActiveVisible}>Active</button> 
+            <button type="button" class={`btn btn-primary ${(isActiveVisible === false) && (isArchivedVisible === true) ? 'active' : ''}`} onClick={handleArchivedVisible}>Archived</button>
+        </div>
+            
+            {isActiveVisible ? 
+            <>
+                <h1>Active Lists</h1>
+                    {lists.map((list,index) => (
+                            <div class="card mb-3">
+                                <div class="card-body">
+                                        {/* <a class ="btn"href={`/${list}`}> */}
+                                            <h5 class="card-title">
+                                                {list}
+                                            </h5>
+                                        {/* </a> */}
+                                    {/* <p class="card-text">With supporting text below as a natural lead-in to additional content.</p> */}
+                                    <a class="btn btn-primary" href={`/${list}`}>Go somewhere</a>
+                                    <a class="btn btn-warning" onClick={() => handleAddToArchived(index)}>Archive list</a>
+                                    <a class="btn btn-danger" onClick={() => handleRemoveList(index)}>Delete list</a>
+                                </div>
+                            </div>
+                        ))
+                    }
+
+                </> : 
+                <div></div>
+            
         }
-            <h1>Archived Lists</h1>
-            {archivedLists.map((listArchived,index) => (
-                <div class="card mb-3">
-                    <div class="card-body">
-                            {/* <a class ="btn"href={`/${list}`}> */}
-                                <h5 class="card-title">
-                                    {listArchived}
-                                </h5>
-                            {/* </a> */}
-                        {/* <p class="card-text">With supporting text below as a natural lead-in to additional content.</p> */}
-                        <a class="btn btn-primary" href={`/${listArchived}`}>Go somewhere</a>
-                        <a class="btn btn-warning" onClick={() => handleAddToArchived(index)}>Archive list</a>
-                        <a class="btn btn-danger" onClick={() => handleRemoveList(index)}>Delete list</a>
-                    </div>
-                </div>
-            ))
+            {isArchivedVisible?  
+            <>
+                <h1>Archived Lists</h1>
+                    {archivedLists.map((listArchived,indexArchived) => (
+                            <div class="card mb-3">
+                                <div class="card-body">
+                                        {/* <a class ="btn"href={`/${list}`}> */}
+                                            <h5 class="card-title">
+                                                {listArchived}
+                                            </h5>
+                                        {/* </a> */}
+                                    {/* <p class="card-text">With supporting text below as a natural lead-in to additional content.</p> */}
+                                    <a class="btn btn-primary" href={`/${listArchived}`}>Go somewhere</a>
+                                    <a class="btn btn-warning" onClick={() => handleAddToArchived(indexArchived)}>Archive list</a>
+                                    <a class="btn btn-danger" onClick={() => handleRemoveArchivedList(indexArchived)}>Delete list</a>
+                                </div>
+                            </div>
+                        ))
+                    }
+            
+            </>
+            : 
+            <div></div>
+            
         }
             {/* {archivedLists} */}
             <h1>hello</h1>
@@ -121,7 +175,7 @@ const TileView1 = () => {
                         <input class="form-control" type="text" placeholder="Default input" aria-label="default input example" value={newList} onChange={(e) => setNewList(e.target.value)}></input>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <button 
                         type="button" 
                         class="btn btn-primary"
