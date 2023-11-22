@@ -129,7 +129,7 @@ const TileView1 = () => {
                                             </h5>
                                         {/* </a> */}
                                     {/* <p class="card-text">With supporting text below as a natural lead-in to additional content.</p> */}
-                                    <a class="btn btn-primary" href={`/${list}`}>Go somewhere</a>
+                                    <a class="btn btn-primary" href={`/${list}`}>Go to list</a>
                                     <a class="btn btn-warning" onClick={() => handleAddToArchived(index)}>Archive list</a>
                                     {/* <a class="btn btn-danger" onClick={() => handleRemoveList(index)}>Delete list</a> */}
                                  {/* <!-- Button trigger modal --> */}
@@ -142,7 +142,7 @@ const TileView1 = () => {
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                             <div class="modal-header">
-                                                <h1 class="modal-title fs-5" id="deleteModalLabel">Modal title</h1>
+                                                <h1 class="modal-title fs-5" id="deleteModalLabel">Delete Active List</h1>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
@@ -178,7 +178,7 @@ const TileView1 = () => {
                                             </h5>
                                         {/* </a> */}
                                     {/* <p class="card-text">With supporting text below as a natural lead-in to additional content.</p> */}
-                                    <a class="btn btn-primary" href={`/${listArchived}`}>Go somewhere</a>
+                                    <a class="btn btn-primary" href={`/${listArchived}`}>Go to list</a>
                                     {/* <a class="btn btn-warning" onClick={() => handleAddToArchived(indexArchived)}>Archive list</a> */}
                                     {/* <a class="btn btn-danger" onClick={() => handleRemoveArchivedList(indexArchived)}>Delete list</a> */}
                                     <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModalArchived" onClick={() => setCurrentIndexArchived(indexArchived)}>
@@ -190,7 +190,7 @@ const TileView1 = () => {
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                             <div class="modal-header">
-                                                <h1 class="modal-title fs-5" id="deleteModalArchivedLabel">Modal title</h1>
+                                                <h1 class="modal-title fs-5" id="deleteModalArchivedLabel">Delete Archived List</h1>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
