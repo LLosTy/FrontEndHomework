@@ -95,6 +95,12 @@ const TileView1 = () => {
     const [currentIndexActive, setCurrentIndexActive] = useState(null)
     const [currentIndexArchived, setCurrentIndexArchived] = useState(null)
 
+    const [isOwner, setIsOwner] = useState(true);
+
+    const handleSetOwner = () => {
+        setIsOwner(!isOwner);
+    }
+
     // const handleDeleteListActive = (index) => {
     //     // handleRemoveList(index)
     //     // const indexActive = index
@@ -104,6 +110,11 @@ const TileView1 = () => {
 
     return(
         <div>
+            <div class="form-check form-switch d-flex justify-content-end p-2 ">
+                <input class="form-check-input me-2" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked={isOwner}  onChange={handleSetOwner}></input>
+                <label class="form-check-label" for="flexSwitchCheckDefault">Is Owner: {isOwner ? "True" : "False"}</label>
+            </div>
+      
 
 
         <div class="btn-group" role="group" aria-label="Basic example">
@@ -133,9 +144,14 @@ const TileView1 = () => {
                                     <a class="btn btn-warning" onClick={() => handleAddToArchived(index)}>Archive list</a>
                                     {/* <a class="btn btn-danger" onClick={() => handleRemoveList(index)}>Delete list</a> */}
                                  {/* <!-- Button trigger modal --> */}
+
+                                 {isOwner ? 
                                         <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" onClick={() => setCurrentIndexActive(index)}>
                                         Delete list
-                                        </button>
+                                        </button> :
+                                        <div> </div>
+                                 
+                                }
 
                                         {/* <!-- Modal --> */}
                                         <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
@@ -181,9 +197,15 @@ const TileView1 = () => {
                                     <a class="btn btn-primary" href={`/${listArchived}`}>Go to list</a>
                                     {/* <a class="btn btn-warning" onClick={() => handleAddToArchived(indexArchived)}>Archive list</a> */}
                                     {/* <a class="btn btn-danger" onClick={() => handleRemoveArchivedList(indexArchived)}>Delete list</a> */}
+
+                                    {isOwner ? 
                                     <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModalArchived" onClick={() => setCurrentIndexArchived(indexArchived)}>
                                         Delete list
                                         </button>
+                                        :
+                                        <div></div>
+
+                                    }
 
                                         {/* <!-- Modal --> */}
                                         <div class="modal fade" id="deleteModalArchived" tabindex="-1" aria-labelledby="deleteModalArchivedLabel" aria-hidden="true">
