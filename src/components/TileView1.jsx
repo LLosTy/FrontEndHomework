@@ -133,8 +133,8 @@ const TileView1 = () => {
             {isActiveVisible ? 
             <>
 
-                <h1>Active Lists</h1>
-            <div class="row row-cols-3 row-cols-md-4 g-2">
+                <h1 className='p-1 m-2'>Active Lists</h1>
+                <div class="row row-cols-auto row-cols-md-auto g-2 m-1">
                     {lists.map((list,index) => (
                           <div class="col">
                             <div class="card mb-3">
@@ -193,8 +193,8 @@ const TileView1 = () => {
         }
             {isArchivedVisible?  
             <>
-                <h1>Archived Lists</h1>
-            <div class="row row-cols-3 row-cols-md-4 g-2">
+                <h1 className='p-1 m-2'>Archived Lists</h1>
+                <div class="row row-cols-auto row-cols-md-auto g-2 m-1">
                     {archivedLists.map((listArchived,indexArchived) => (
                           <div class="col">
                             <div class="card mb-3">
@@ -253,9 +253,11 @@ const TileView1 = () => {
         }
             {/* {archivedLists} */}
             {/* <!-- Button trigger modal --> */}
+            <div class="d-flex justify-content-center mt-5 m-2 p-2">
                 <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                Add List
+                Add new list
                 </button>
+            </div>
 
                 {/* <!-- Modal --> */}
                 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
