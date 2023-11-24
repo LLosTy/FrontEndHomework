@@ -117,40 +117,44 @@ const TileView1 = () => {
             </div>
       
 
+        <div class="d-flex justify-content-center p-2">
+            <div class="btn-group" role="group" aria-label="Basic example">
+                {/* <button type="button" class={`btn btn-primary ${(isResolvedVisible && isUnresolvedVisible) === true ? 'active' : ''}`} onClick={handleToggleAll}>All</button> */}
+                <button type="button" class={`btn btn-primary ${(isActiveVisible && isArchivedVisible) === true ? 'active' : ''} `} onClick={handleToggleAllVisible}>All</button>
 
-        <div class="btn-group" role="group" aria-label="Basic example">
-            {/* <button type="button" class={`btn btn-primary ${(isResolvedVisible && isUnresolvedVisible) === true ? 'active' : ''}`} onClick={handleToggleAll}>All</button> */}
-            <button type="button" class={`btn btn-primary ${(isActiveVisible && isArchivedVisible) === true ? 'active' : ''} `} onClick={handleToggleAllVisible}>All</button>
-
-            {/* for some reason the logic is flipped or im just stupid lol */}
-            {/* Fix the resolved and unresolved filter (is flipped in the rendering below) */}
-            <button type="button" class={`btn btn-primary ${(isActiveVisible === true) && (isArchivedVisible === false) ? 'active' : ''}`} onClick={handleActiveVisible}>Active</button> 
-            <button type="button" class={`btn btn-primary ${(isActiveVisible === false) && (isArchivedVisible === true) ? 'active' : ''}`} onClick={handleArchivedVisible}>Archived</button>
+                {/* for some reason the logic is flipped or im just stupid lol */}
+                {/* Fix the resolved and unresolved filter (is flipped in the rendering below) */}
+                <button type="button" class={`btn btn-primary ${(isActiveVisible === true) && (isArchivedVisible === false) ? 'active' : ''}`} onClick={handleActiveVisible}>Active</button> 
+                <button type="button" class={`btn btn-primary ${(isActiveVisible === false) && (isArchivedVisible === true) ? 'active' : ''}`} onClick={handleArchivedVisible}>Archived</button>
+            </div>
         </div>
+        
             
             {isActiveVisible ? 
             <>
-            
+
                 <h1>Active Lists</h1>
+            <div class="row row-cols-3 row-cols-md-4 g-2">
                     {lists.map((list,index) => (
+                          <div class="col">
                             <div class="card mb-3">
                                 <div class="card-body">
                                         {/* <a class ="btn"href={`/${list}`}> */}
-                                            <h5 class="card-title">
+                                            <h4 class="card-title">
                                                 {list}
-                                            </h5>
+                                            </h4>
                                         {/* </a> */}
                                     {/* <p class="card-text">With supporting text below as a natural lead-in to additional content.</p> */}
-                                    <a class="btn btn-primary" href={`/${list}`}>Go to list</a>
-                                    <a class="btn btn-warning" onClick={() => handleAddToArchived(index)}>Archive list</a>
+                                    <a class="btn btn-primary m-1" href={`/${list}`}>Go to list</a>
+                                    <a class="btn btn-warning m-1" onClick={() => handleAddToArchived(index)}>Archive list</a>
                                     {/* <a class="btn btn-danger" onClick={() => handleRemoveList(index)}>Delete list</a> */}
                                  {/* <!-- Button trigger modal --> */}
 
-                                 {isOwner ? 
-                                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" onClick={() => setCurrentIndexActive(index)}>
-                                        Delete list
-                                        </button> :
-                                        <div> </div>
+                                {isOwner ? 
+                                    <button type="button" class="btn btn-danger m-1" data-bs-toggle="modal" data-bs-target="#deleteModal" onClick={() => setCurrentIndexActive(index)}>
+                                    Delete list
+                                    </button> :
+                                    <div> </div>
                                  
                                 }
 
@@ -173,11 +177,15 @@ const TileView1 = () => {
                                             </div>
                                             </div>
                                         </div>
-                                        </div>
+                                    </div>
                                 </div>
                             </div>
+                        </div>
+
                         ))
                     }
+                    </div>
+
 
                 </> : 
                 <div></div>
@@ -186,7 +194,9 @@ const TileView1 = () => {
             {isArchivedVisible?  
             <>
                 <h1>Archived Lists</h1>
+            <div class="row row-cols-3 row-cols-md-4 g-2">
                     {archivedLists.map((listArchived,indexArchived) => (
+                          <div class="col">
                             <div class="card mb-3">
                                 <div class="card-body">
                                         {/* <a class ="btn"href={`/${list}`}> */}
@@ -195,12 +205,12 @@ const TileView1 = () => {
                                             </h5>
                                         {/* </a> */}
                                     {/* <p class="card-text">With supporting text below as a natural lead-in to additional content.</p> */}
-                                    <a class="btn btn-primary" href={`/${listArchived}`}>Go to list</a>
+                                    <a class="btn btn-primary m-1" href={`/${listArchived}`}>Go to list</a>
                                     {/* <a class="btn btn-warning" onClick={() => handleAddToArchived(indexArchived)}>Archive list</a> */}
                                     {/* <a class="btn btn-danger" onClick={() => handleRemoveArchivedList(indexArchived)}>Delete list</a> */}
 
                                     {isOwner ? 
-                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModalArchived" onClick={() => setCurrentIndexArchived(indexArchived)}>
+                                    <button type="button" class="btn btn-danger m-1" data-bs-toggle="modal" data-bs-target="#deleteModalArchived" onClick={() => setCurrentIndexArchived(indexArchived)}>
                                         Delete list
                                         </button>
                                         :
@@ -229,9 +239,12 @@ const TileView1 = () => {
                                         </div>
                                         </div>
                                 </div>
+                                </div>
+
                             </div>
                         ))
                     }
+                    </div>
             
             </>
             : 
@@ -239,7 +252,6 @@ const TileView1 = () => {
             
         }
             {/* {archivedLists} */}
-            <h1>hello</h1>
             {/* <!-- Button trigger modal --> */}
                 <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
                 Add List
